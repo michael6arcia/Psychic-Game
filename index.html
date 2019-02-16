@@ -16,32 +16,40 @@
         <h1 class="display-4">The Psychic Game!</h1>
         <p class="lead">Guess which letter I'm thinking of...</p>
         <hr class="my-4">
-        <p id="wins"></p>
-        <p id="loses"></p>
-        <p id="yourguess"></p>
-        <p id="guesses"></p>
+        <p id="wins">Wins: </p>
+        <p id="losses">Losses: </p>
+        <p id="yourGuess">Your Guesses: </p>
+        <p id="guesses">Guesses Left: </p>
         <br>
-        <a class="btn btn-dark btn-sm" href="#" role="button">Reset</a>
+        <a id="resetBtn" class="btn btn-dark btn-sm" href="#" role="button">Reset</a>
     </div>
 
     <script type="text/javascript">
         var letters = ["a b c d e f g h i j k l m n o p q r s t u v w x y z"];
         var wins = 0;
-        var loses = 0;
+        var losses = 0;
+        var guesses = 9;
 
         $(document).ready(function() {
             // Computer generates random letter from the array.
             var correctGuess = letters[Math.floor(Math.random() * letters.length)];
 
-            $(document).on("keyup", function() {
+            $(document).keyup(function(event) {
                 // When a key is pressed, it is stored in a variable.
-                var yourguess = event.key;
-
+                var yourGuess = event.key;
                     // If the letter pressed matches the random letter, 
-                    if (yourguess === correctGuess) {
+                    if (yourGuess == correctGuess) {
                         wins++;
-                        $("#wins").append("Wins: 1");
+                        $("#wins").append(wins);
                     }
+                    else {
+                        guesses--;
+                        $("#yourGuess").append(event.key + " ");
+                    }
+            });
+
+            $("#resetBtn").click(function() {
+                $("#yourGuess").text("Your Guesses:");
             });
         });
     </script>
