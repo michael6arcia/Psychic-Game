@@ -18,8 +18,8 @@
         <hr class="my-4">
         <p id="wins"></p>
         <p id="loses"></p>
-        <p id=yourguess></p>
-        <p id=guesses></p>
+        <p id="yourguess"></p>
+        <p id="guesses"></p>
         <br>
         <a class="btn btn-dark btn-sm" href="#" role="button">Reset</a>
     </div>
@@ -30,8 +30,18 @@
         var loses = 0;
 
         $(document).ready(function() {
+            // Computer generates random letter from the array.
+            var correctGuess = letters[Math.floor(Math.random() * letters.length)];
+
             $(document).on("keyup", function() {
+                // When a key is pressed, it is stored in a variable.
                 var yourguess = event.key;
+
+                    // If the letter pressed matches the random letter, 
+                    if (yourguess === correctGuess) {
+                        wins++;
+                        $("#wins").append("Wins: 1");
+                    }
             });
         });
     </script>
