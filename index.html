@@ -25,31 +25,57 @@
     </div>
 
     <script type="text/javascript">
-        var letters = ["a b c d e f g h i j k l m n o p q r s t u v w x y z"];
+        // Variables defined.
+        var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
         var wins = 0;
         var losses = 0;
         var guesses = 9;
 
         $(document).ready(function () {
-            // Computer generates random letter from the array.
-            var correctGuess = letters[Math.floor(Math.random() * letters.length)];
 
             $(document).keyup(function (event) {
-                // When a key is pressed, it is stored in a variable.
+                // Computer generates random letter from the "letters" array.
+                var correctGuess = letters[Math.floor(Math.random() * letters.length)];
+                // When the user presses a key, it is stored in a variable.
                 var yourGuess = event.key;
-                // If the letter pressed matches the random letter, 
-                if (yourGuess == correctGuess) {
-                    wins++;
-                    $("#wins").append(wins);
+
+                // If the letter pressed matches the random letter.
+                if (yourGuess === correctGuess) {
+                    // Adds one to win count, and displays it.
+                    wins += 1;
+                    $("#wins").text("Wins: " + wins);
+                    // Guesses reset to 9, and clears previously guessed letters.
+                    guesses = 9;
+                    $("#yourGuess").text("Your Guesses: ");
+                    $("#guesses").text("Guesses Left: " + guesses);
                 }
+
+                // Else subtract one from guesses left.
                 else {
-                    guesses--;
                     $("#yourGuess").append(event.key + " ");
+                    guesses -= 1;
+                    $("#guesses").text("Guesses Left: " + guesses);
+                    // If guesses left = 0, add one to loss count.
+                    if (guesses === 0) {
+                        losses += 1;
+                        $("#losses").text("Losses: " + losses);
+                        // Guesses reset to 9, previous letters are cleared.
+                        guesses = 9;
+                        $("#yourGuess").text("Your Guesses: ");
+                        $("#guesses").text("Guesses Left: " + guesses);
+                    }
                 }
             });
 
             $("#resetBtn").click(function () {
-                $("#yourGuess").text("Your Guesses:");
+                // Wins and losses reset.
+                wins = 0;
+                losses = 0;
+                // Stats cleared from display.
+                $("#wins").text("Wins: ");
+                $("#losses").text("Losses: ");
+                $("#yourGuess").text("Your Guesses: ");
+                $("#guesses").text("Guesses Left: ");
             });
         });
     </script>
